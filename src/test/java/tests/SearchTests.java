@@ -14,7 +14,7 @@ public class SearchTests extends TestBase {
 
     @Test
     void successfulSearchTest(){
-        step("Ввести в поисковую строку", () -> {
+        step("Ввести в поисковую строку значение {0}", () -> {
             $(accessibilityId("Search Wikipedia")).click();
             $(id("org.wikipedia.alpha:id/search_src_text")).sendKeys("Appium");
         });

@@ -4,7 +4,8 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 
-import configs.BrowserstackDriverProvider;
+import drivers.BrowserstackDriverProvider;
+import drivers.EmulatorDriver;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
@@ -15,10 +16,13 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 
 public class TestBase {
-
+    public static String deviceHost = System.getProperty("deviceHost");
     @BeforeAll
     static void setUp() {
-        Configuration.browser = BrowserstackDriverProvider.class.getName();
+        switch (deviceHost) {
+            case "browserstack" -> Configuration.browser = BrowserstackDriverProvider.class.getName();
+            case "emulation" -> Configuration.browser = EmulatorDriver.class.getName();
+        }
         Configuration.browserSize = null;
         Configuration.timeout = 30000;
     }
@@ -36,7 +40,7 @@ public class TestBase {
         Attach.pageSource();
         closeWebDriver();
 
-        Attach.addVideo(sessionId);
+//        Attach.addVideo(sessionId);
     }
 
 }

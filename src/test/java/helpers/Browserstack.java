@@ -1,7 +1,7 @@
 package helpers;
 
 
-import configs.BrowserstackDriverProvider;
+import drivers.BrowserstackDriverProvider;
 
 import static io.restassured.RestAssured.given;
 
